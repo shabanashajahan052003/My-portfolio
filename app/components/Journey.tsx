@@ -1,0 +1,139 @@
+"use client";
+
+import { m as motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
+import AnimatedHeading from "./AnimatedHeading";
+
+const journey = [
+  {
+    icon: "🎓",
+    title: "B.Tech in Computer Science",
+    description: "TKM Institute of Technology (2021 - 2025)",
+    category: "Education",
+  },
+  {
+    icon: "🏀",
+    title: "Basketball Player & Volunteer Math Teacher",
+    description: "2nd Prize in Inter-College Sports & Mentor at Project Ganitham",
+    category: "Activities",
+  },
+  {
+    icon: "📜",
+    title: "AI & Machine Learning Certifications",
+    description: "NPTEL (IIT Guwahati & IIT Kharagpur)",
+    category: "Certification",
+  },
+  {
+    icon: "💻",
+    title: "Python Django Full Stack Developer Intern",
+    description: "Luminar Technolab (Jul 2025 – Feb 2026)",
+    category: "Internship",
+  },
+  {
+    icon: "⚙️",
+    title: "Software Developer intern",
+    description: "BlueRipples Technologies (Nov 2025 – March 2026)",
+    category: "Internship",
+  },
+
+  {
+    icon: "🚀",
+    title: "Front End Developer intern",
+    description: "Valoriz Digital (May 2026 – Present)",
+    category: "Internship",
+  },
+];
+
+const categoryColors: Record<string, string> = {
+  Education: "#06b6d4",
+  Volunteering: "#22c55e",
+  Activities: "#f59e0b",
+  Sports: "#ec4899",
+  Certification: "#8b5cf6",
+  Internship: "#a78bfa",
+  Experience: "#ec4899",
+  Freelance: "#10b981",
+};
+
+export default function Journey() {
+  return (
+    <AnimatedSection className="px-4 sm:px-6 py-20 sm:py-40 section-glow-purple">
+      <div className="mx-auto max-w-4xl">
+        <AnimatedHeading className="mb-12 sm:mb-20 text-center text-3xl sm:text-4xl md:text-5xl font-bold">
+          My Journey
+        </AnimatedHeading>
+
+        {/* Timeline */}
+        <div className="relative">
+          {/* Connector line */}
+          <div className="absolute left-8 top-0 bottom-0 w-px timeline-line" />
+
+          <div className="space-y-6">
+            {journey.map((item, i) => {
+              const color = categoryColors[item.category] ?? "#06b6d4";
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, x: -40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-3%" }}
+                  transition={{
+                    duration: 0.55,
+                    delay: i * 0.07,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="relative pl-20"
+                >
+                  {/* Step number dot */}
+                  <div
+                    className="absolute left-4 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-sm font-bold"
+                    style={{
+                      background: `radial-gradient(circle, ${color}22 0%, #050816 100%)`,
+                      color,
+                      borderColor: `${color}40`,
+                      boxShadow: `0 0 12px ${color}30`,
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+
+                  {/* Card */}
+                  <motion.div
+                    whileHover={{ x: 6, transition: { duration: 0.2 } }}
+                    className="glass glass-hover group flex items-start gap-4 rounded-xl p-5 transition-all duration-300"
+                  >
+                    {/* Icon */}
+                    <span className="text-2xl leading-none mt-0.5 transition-transform duration-200 group-hover:scale-110">
+                      {item.icon}
+                    </span>
+
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors duration-200">
+                          {item.title}
+                        </h3>
+                        <span
+                          className="rounded-full px-2 py-0.5 text-xs font-medium"
+                          style={{
+                            color,
+                            background: `${color}18`,
+                            border: `1px solid ${color}30`,
+                          }}
+                        >
+                          {item.category}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-xs text-slate-500">
+                        {item.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
